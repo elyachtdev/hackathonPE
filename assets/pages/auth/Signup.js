@@ -1,85 +1,93 @@
-import React, { Component, useRef, useState, useEffect } from "react";
+import React, { useState, Component } from "react";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import axios from "axios";
 
-const instance = axios.create({
-    baseURL: "/api",
-    headers: {
-        "Content-type": "application/json",
-        "Accept": "application/json"
-    }
-});
+function Register() {
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = '/register';
+    const [name, setName] = useState("");
+    const [password, setPassword] = useState("");
+    const [isSaving, setIsSaving] = useState(false);
 
-
-
-class Register extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            isLoading: false,
-            message: ""
-        }
-
-        this.handleRegister = this.handleRegister.bind(this);
-    }
-    
-    
-
-    handleRegister(e) {
-        e.preventDefault();
-
-        this.setState({
-            isLoading: true,
-            message: ""
+    const handleRegister = () => {
+        setIsSaving(true);
+        let formData = new FormData();
+        formData.append("name", name);
+        formData.append("password", password);
+        axios
+        .post("/api/register", formData)
+        .then(function (response) {
+            Swal.fire({
+            icon: "success",
+            title: "compte crée avec succès!",
+            showConfirmButton: false,
+            timer: 1500,
+            });
+            setIsSaving(false);
+            setName("");
+            setPassword("");
         })
-
-        console.log('Cliqué', this.state.isLoading);
-
-        instance
-            .post("/test", {
-                email: "",
-                password: ""
-            })
-            .then(response => {
-                console.log(response);
-                console.log(response.data);
-                console.log(response.message);
-                console.log(response.path);
-            }).catch(error => {
-                console.log(error.response.data);
-            })
-    }
-    render() {
-        return (
-            <div className="container">
-                <h2 className="mt-5 mb-3">Inscription</h2>
-                <form method={"POST"}>
-                    <div className="mb-3">
-                        <label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
-                        <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com" />
-                    </div>
-                    <div className="mb-3 row">
-                        <label htmlFor="inputPassword" className="form-label">Password</label>
-                        <div className="col-sm-10">
-                            <input type="password" className="form-control" id="inputPassword" 
-                            autoComplete="on" />
-                        </div>
-                    </div>
-                    <button type="submit" className="btn btn-primary" onClick={this.handleRegister}>Submit</button>
-                </form>
-                <button type="submit" className="btn btn-primary" onClick={this.handleRegister}>
-                    <span className="spinner-border spinner-border-sm"></span>
-                    Submit
-                </button>
-                
+        .catch(function (error) {
+            Swal.fire({
+            icon: "error",
+            title: "Une erreur est survenue!",
+            showConfirmButton: false,
+            timer: 1500,
+            });
+            setIsSaving(false);
+        });
+    };
+    return (
+        <div className="container">
+          <h2 className="text-center mt-5 mb-3">Créer un nouveau compte</h2>
+          <div className="card">
+            <div className="card-header">
+              <Link className={"btn btn-outline-info float-right"} to={"/projects"}>
+                {" "}
+                Voir tous les comptes{" "}
+              </Link>
             </div>
-        );
-    }
+            <div className="card-body">
+              <form>
+                <div className="form-group">
+                  <label htmlFor="name">Nom</label>
+                  <input
+                    onChange={(event) => {
+                      setName(event.target.value);
+                    }}
+                    value={name}
+                    type="text"
+                    className="form-control"
+                    id="name"
+                    name="name"
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
+                  <textarea
+                    value={password}
+                    onChange={(event) => {
+                      setPassword(event.target.value);
+                    }}
+                    className="form-control"
+                    id="password"
+                    rows="3"
+                    name="password"
+                  ></textarea>
+                </div>
+                <button
+                  disabled={isSaving}
+                  onClick={handleRegister}
+                  type="button"
+                  className="btn btn-outline-primary mt-3"
+                >
+                  Sauvegarder
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      );
 }
 
 export default Register;
