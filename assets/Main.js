@@ -6,10 +6,14 @@ import Layout from "./components/Layout";
 
 import Home from "./pages/home/Home";
 import SignUp from "./pages/auth/Signup";
+import Compare from "./pages/compare/Compare";
 import ProjectList from "./pages/project/ProjectList";
 import ProjectCreate from "./pages/project/ProjectCreate";
 import ProjectEdit from "./pages/project/ProjectEdit";
 import ProjectShow from "./pages/project/ProjectShow";
+import RechercheApiBeauty from "./pages/rechercheApi/RechercheApiBeauty";
+import FoodSearch from "./pages/food/foodSearch.js";
+
 
 function Main() {
   return (
@@ -17,8 +21,11 @@ function Main() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home/>}></Route>
+          <Route path="/RechercheApiBeauty" element={<RechercheApiBeauty/>}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/compare" element={<Compare />} />
           <Route exact path="/projects/" element={<ProjectList />} />
+          <Route exact path="/food/" element={<FoodSearch />} />
           <Route path="/projects/create" element={<ProjectCreate />} />
           <Route path="/projects/edit/:id" element={<ProjectEdit />} />
           <Route path="/projects/show/:id" element={<ProjectShow />} />
