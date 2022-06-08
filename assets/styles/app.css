@@ -225,6 +225,6 @@ div.layout {
 #panneau-selection {
     display: flex;
     flex-direction: row;
-    align-content: space-between;
+    justify-content: space-around;
     padding: 32px;
 }
