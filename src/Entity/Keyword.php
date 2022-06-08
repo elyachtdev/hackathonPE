@@ -2,25 +2,38 @@
 
 namespace App\Entity;
 
-use App\Repository\KeywordRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: KeywordRepository::class)]
+/**
+ * Keyword
+ *
+ * @ORM\Table(name="keyword", indexes={@ORM\Index(name="keyword", columns={"keyword"})})
+ * @ORM\Entity
+ */
 class Keyword
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="keyword", type="string", length=250, nullable=false)
+     */
     private $keyword;
 
-    #[ORM\Column(type: 'integer')]
-    private $monthly_search_count;
-
-    #[ORM\ManyToOne(targetEntity: RankedPage::class, inversedBy: 'keyword_id')]
-    private $RankedKeywordRelation;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="monthly_search_count", type="integer", nullable=false)
+     */
+    private $monthlySearchCount;
 
     public function getId(): ?int
     {
@@ -41,25 +54,15 @@ class Keyword
 
     public function getMonthlySearchCount(): ?int
     {
-        return $this->monthly_search_count;
+        return $this->monthlySearchCount;
     }
 
-    public function setMonthlySearchCount(int $monthly_search_count): self
+    public function setMonthlySearchCount(int $monthlySearchCount): self
     {
-        $this->monthly_search_count = $monthly_search_count;
+        $this->monthlySearchCount = $monthlySearchCount;
 
         return $this;
     }
 
-    public function getRankedKeywordRelation(): ?RankedPage
-    {
-        return $this->RankedKeywordRelation;
-    }
 
-    public function setRankedKeywordRelation(?RankedPage $RankedKeywordRelation): self
-    {
-        $this->RankedKeywordRelation = $RankedKeywordRelation;
-
-        return $this;
-    }
 }

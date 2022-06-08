@@ -3,38 +3,60 @@
 namespace App\Entity;
 
 use App\Repository\RankedPageRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * RankedPage
+ *
+ * @ORM\Table(name="ranked_page", indexes={@ORM\Index(name="website_id", columns={"website_id"}), @ORM\Index(name="keyword_id", columns={"keyword_id"})})
+ * @ORM\Entity
+ */
 #[ORM\Entity(repositoryClass: RankedPageRepository::class)]
 class RankedPage
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="text", length=65535, nullable=false)
+     */
     private $url;
 
-    #[ORM\Column(type: 'integer')]
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="rank", type="integer", nullable=false)
+     */
     private $rank;
 
-    #[ORM\Column(type: 'integer')]
-    private $visibility_score;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="visibility_score", type="integer", nullable=false)
+     */
+    private $visibilityScore;
 
-    #[ORM\OneToMany(mappedBy: 'RankedWebsiteRelation', targetEntity: Website::class)]
-    private $website_id;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="website_id", type="integer", nullable=false)
+     */
+    private $websiteId;
 
-    #[ORM\OneToMany(mappedBy: 'RankedKeywordRelation', targetEntity: Keyword::class)]
-    private $keyword_id;
-
-    public function __construct()
-    {
-        $this->website_id = new ArrayCollection();
-        $this->keyword_id = new ArrayCollection();
-    }
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="keyword_id", type="integer", nullable=false)
+     */
+    private $keywordId;
 
     public function getId(): ?int
     {
@@ -67,73 +89,39 @@ class RankedPage
 
     public function getVisibilityScore(): ?int
     {
-        return $this->visibility_score;
+        return $this->visibilityScore;
     }
 
-    public function setVisibilityScore(int $visibility_score): self
+    public function setVisibilityScore(int $visibilityScore): self
     {
-        $this->visibility_score = $visibility_score;
+        $this->visibilityScore = $visibilityScore;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Website>
-     */
-    // public function getWebsiteId(): Collection
-    // {
-    //     return $this->website_id;
-    // }
+    public function getWebsiteId(): ?int
+    {
+        return $this->websiteId;
+    }
 
-    // public function addWebsiteId(Website $websiteId): self
-    // {
-    //     if (!$this->website_id->contains($websiteId)) {
-    //         $this->website_id[] = $websiteId;
-    //         $websiteId->setRankedWebsiteRelation($this);
-    //     }
+    public function setWebsiteId(int $websiteId): self
+    {
+        $this->websiteId = $websiteId;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
-    // public function removeWebsiteId(Website $websiteId): self
-    // {
-    //     if ($this->website_id->removeElement($websiteId)) {
-    //         // set the owning side to null (unless already changed)
-    //         if ($websiteId->getRankedWebsiteRelation() === $this) {
-    //             $websiteId->setRankedWebsiteRelation(null);
-    //         }
-    //     }
+    public function getKeywordId(): ?int
+    {
+        return $this->keywordId;
+    }
 
-    //     return $this;
-    // }
+    public function setKeywordId(int $keywordId): self
+    {
+        $this->keywordId = $keywordId;
 
-    // /**
-    //  * @return Collection<int, Keyword>
-    //  */
-    // public function getKeywordId(): Collection
-    // {
-    //     return $this->keyword_id;
-    // }
+        return $this;
+    }
 
-    // public function addKeywordId(Keyword $keywordId): self
-    // {
-    //     if (!$this->keyword_id->contains($keywordId)) {
-    //         $this->keyword_id[] = $keywordId;
-    //         $keywordId->setRankedKeywordRelation($this);
-    //     }
 
-    //     return $this;
-    // }
-
-    // public function removeKeywordId(Keyword $keywordId): self
-    // {
-    //     if ($this->keyword_id->removeElement($keywordId)) {
-    //         // set the owning side to null (unless already changed)
-    //         if ($keywordId->getRankedKeywordRelation() === $this) {
-    //             $keywordId->setRankedKeywordRelation(null);
-    //         }
-    //     }
-
-    //     return $this;
-    // }
 }
