@@ -6,6 +6,7 @@ import Layout from "./components/Layout";
 
 import Home from "./pages/home/Home";
 import SignUp from "./pages/auth/Signup";
+import Compare from "./pages/compare/Compare";
 import ProjectList from "./pages/project/ProjectList";
 import ProjectCreate from "./pages/project/ProjectCreate";
 import ProjectEdit from "./pages/project/ProjectEdit";
@@ -21,6 +22,7 @@ function Main() {
           <Route path="/" element={<Home/>}></Route>
           <Route path="/RechercheApiBeauty" element={<RechercheApiBeauty/>}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/compare" element={<Compare />} />
           <Route exact path="/projects/" element={<ProjectList />} />
           <Route path="/projects/create" element={<ProjectCreate />} />
           <Route path="/projects/edit/:id" element={<ProjectEdit />} />
