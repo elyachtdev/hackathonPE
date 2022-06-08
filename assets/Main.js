@@ -10,6 +10,8 @@ import ProjectList from "./pages/project/ProjectList";
 import ProjectCreate from "./pages/project/ProjectCreate";
 import ProjectEdit from "./pages/project/ProjectEdit";
 import ProjectShow from "./pages/project/ProjectShow";
+import RechercheApiBeauty from "./pages/rechercheApi/RechercheApiBeauty";
+
 
 function Main() {
   return (
@@ -17,6 +19,7 @@ function Main() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home/>}></Route>
+          <Route path="/RechercheApiBeauty" element={<RechercheApiBeauty/>}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route exact path="/projects/" element={<ProjectList />} />
           <Route path="/projects/create" element={<ProjectCreate />} />
