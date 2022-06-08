@@ -21,6 +21,25 @@ class RankedPageRepository extends ServiceEntityRepository
         parent::__construct($registry, RankedPage::class);
     }
 
+    /**
+     * @return RankedPage[]
+     */
+    public function findSearchRanking(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT r FROM App\Entity\RankedPage r 
+            -- INNER JOIN App\Entity\Website w ON r.website_id = w.id
+            -- INNER JOIN App\Entity\Keyword k ON k.id = r.keyword_id 
+            WHERE r.visibilityScore > 50000
+            ORDER BY r.visibilityScore DESC'
+        );
+
+        // returns an array of RankedPage objects
+        return $query->getResult();
+    }
+
     public function add(RankedPage $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
