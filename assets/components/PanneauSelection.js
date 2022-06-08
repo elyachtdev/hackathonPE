@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import SearchBarLeft from './SearchBarLeft'
 import SearchBarRight from './SearchBarRight'
+import '../styles/PanneauSelection.css'
 
 function PanneauSelection() {
     const [searchValueLeft, updateSearchValueLeft] = useState(" ");
