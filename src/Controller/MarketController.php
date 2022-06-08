@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\RankedPage;
-use Doctrine\ORM\EntityManager;
+use App\Repository\RankedPageRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,12 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class MarketController extends AbstractController
 {
     #[Route('/market', name: 'app_market')]
-    public function index(ManagerRegistry $doctrine): Response
+    public function index(RankedPageRepository $repo): Response
     {
-        $markets = $doctrine->getRepository(RankedPage::class)->findBy(
-            ['url' => 'https://www.e.leclerc/cat/culture'],
-            ['visibility_score' => 'ASC']
-        );
+        // $min_rank = 50000;
+        $markets = $repo->findSearchRanking();
 
         return $this->json($markets);
     }
