@@ -19,7 +19,7 @@ function Main() {
         <Routes>
           <Route path="/" element={<Home/>}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
-          <Route path="/compare" element={<Compare />}></Route>
+          <Route path="/compare" element={<Compare />} />
           <Route exact path="/projects/" element={<ProjectList />} />
           <Route path="/projects/create" element={<ProjectCreate />} />
           <Route path="/projects/edit/:id" element={<ProjectEdit />} />
