@@ -10,6 +10,8 @@ import ProjectList from "./pages/project/ProjectList";
 import ProjectCreate from "./pages/project/ProjectCreate";
 import ProjectEdit from "./pages/project/ProjectEdit";
 import ProjectShow from "./pages/project/ProjectShow";
+import FoodSearch from "./pages/food/foodSearch.js";
+
 
 function Main() {
   return (
@@ -19,6 +21,7 @@ function Main() {
           <Route path="/" element={<Home/>}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route exact path="/projects/" element={<ProjectList />} />
+          <Route exact path="/food/" element={<FoodSearch />} />
           <Route path="/projects/create" element={<ProjectCreate />} />
           <Route path="/projects/edit/:id" element={<ProjectEdit />} />
           <Route path="/projects/show/:id" element={<ProjectShow />} />
