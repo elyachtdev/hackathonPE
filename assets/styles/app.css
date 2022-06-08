@@ -1,3 +1,5 @@
+@import '../../node_modules/bootstrap-icons/font/bootstrap-icons.css';
+
 body {
     background-color: lightgray;
     height: 100vh;
@@ -220,4 +222,11 @@ div.layout {
     to {
         border-right-color: transparent;
     }
+}
+
+#panneau-selection {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 32px;
 }
