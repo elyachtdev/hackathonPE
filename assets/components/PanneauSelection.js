@@ -4,6 +4,7 @@ import SearchBarLeft from './SearchBarLeft'
 import SearchBarRight from './SearchBarRight'
 
 function PanneauSelection() {
+    //useState pour récupérer le contenu des inputs et faire des trucs rigolol avec
     const [searchValueLeft, updateSearchValueLeft] = useState(" ");
     const [searchValueRight, updateSearchValueRight] = useState(" ");
 
