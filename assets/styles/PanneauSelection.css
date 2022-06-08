@@ -1,6 +1,0 @@
-.panneau-selection {
-    display: flex;
-    flex-direction: row;
-    align-content: space-between;
-    padding: 32px;
-}

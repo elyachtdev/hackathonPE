@@ -221,3 +221,10 @@ div.layout {
         border-right-color: transparent;
     }
 }
+
+#panneau-selection {
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    padding: 32px;
+}

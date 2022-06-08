@@ -1,3 +1,4 @@
+import React from 'react'
 import AffichageData from '../../components/AffichageData'
 import PanneauSelection from '../../components/PanneauSelection'
 
