@@ -21,7 +21,7 @@ class ProjectController extends AbstractController
     public function index(ManagerRegistry $doctrine): Response
     {
         $products = $doctrine
-            ->getRepository(Project::class)
+            ->getRepository(Project::class, 'default')
             ->findAll();
 
         $data = [];
