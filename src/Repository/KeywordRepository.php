@@ -21,6 +21,28 @@ class KeywordRepository extends ServiceEntityRepository
         parent::__construct($registry, Keyword::class);
     }
 
+    /**
+     * @return Keyword[]
+     */
+
+    public function findKeyword(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT k FROM App\Entity\Keyword k 
+            -- INNER JOIN App\Entity\Website w ON r.website_id = w.id
+            -- INNER JOIN App\Entity\Keyword k ON k.id = r.keyword_id 
+            WHERE k.monthlySearchCount > 50000
+            ORDER BY k.monthlySearchCount DESC'
+        );
+
+        // returns an array of RankedPage objects
+        return $query->getResult();
+
+       // returns an array of RankedPage objects
+    }
+
     public function add(Keyword $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
