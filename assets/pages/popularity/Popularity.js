@@ -49,17 +49,16 @@ function FoodSearch() {
             .then(response => {
                 let rankList = response.data;
 
+                console.log("RKLIST", rankList);
                 rankList.forEach(element => {
-                    productsResult1.forEach(product => {
-                        // LA c'est sensé marcher mais ça marche pas
-                        if(element.keyword.includes(product.product.stores)) {
-                            rankResult.push(product);
-                            // console.log("ça marche pas", element.url.includes(product.stores));
-                        }
-                    })
+                    if(element.keyword.includes(productsResult1.forEach(product => {
+                        rankResult.push(product.product.stores);
+                    }))) {
+                        
+                    }
                 })
                 console.log('market', response);
-                // console.log('rank', rankResult);
+                console.log('rank', rankResult);
             });
 
             console.log(response.data);
@@ -94,16 +93,12 @@ function FoodSearch() {
                 axios.get('/api/market2')
                     .then(response => {
                         let rankList2 = response.data;
-                        console.log("RK", rankList2)
-                        rankList2.forEach(element => {
-                            productsResult2.forEach(product => {
-                                // LA c'est sensé marcher mais ça marche pas
-                                if(element.keyword.includes(product.product.stores)) {
-                                    rankResult2.push(product);
-                                    // console.log("ça marche pas", element.url.includes(product.stores));
-                                }
-                            })
-                        })
+                        console.log("RK2", rankList2)
+
+                        if(element.keyword.includes(productsResult1.product.stores)) {
+                            rankResult2.push(element);
+                        }
+
                         console.log('market', response);
                         console.log('rank1', rankResult);
                         console.log('rank2', rankResult2);
