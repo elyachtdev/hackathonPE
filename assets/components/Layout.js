@@ -33,7 +33,7 @@ const Layout =({children}) =>{
                         <li className="nav-item">
                             <Link className={"nav-link"} to={"/food"}>
                             {" "}
-                            Recherche alimentaire{" "}
+                            Analyse produits{" "}
                             </Link>
                         </li>
                         <li className="nav-item">
@@ -42,27 +42,12 @@ const Layout =({children}) =>{
                             Comparatif produits{" "}
                             </Link>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link className={"nav-link"} to={"/compare"}>
                             {" "}
                             Comparer produits{" "}
                             </Link>
-                        </li>
-                    </ul>
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item">
-                            <Link className={"nav-link"} to={"/signup"}>
-                            {" "}
-                            Inscription/Connexion{" "}
-                            </Link>
-                        </li>
-
-                    {/* <li className="nav-item">
-                        <Link className={"nav-link"} to={"/users"}>
-                        {" "}
-                        Users{" "}
-                        </Link>
-                    </li> */}
+                        </li> */}
                     </ul>
                 </div>
                 </nav>
