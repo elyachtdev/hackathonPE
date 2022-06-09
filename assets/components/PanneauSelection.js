@@ -10,7 +10,9 @@ function PanneauSelection() {
 
     return <div id="panneau-selection">
         <SearchBarLeft searchValue={searchValueLeft} updateValue={updateSearchValueLeft} />
-        <p>Comparer avec un autre produit : </p>
+        <button id="left-but" type="submit">Tester le référencement</button>
+        <p> OU </p>
+        <button id="right-but" type="submit">Comparer avec un autre produit</button>
         <SearchBarRight searchValue={searchValueRight} updateValue={updateSearchValueRight} />
     </div>
 }
