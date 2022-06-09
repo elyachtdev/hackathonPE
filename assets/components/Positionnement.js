@@ -6,7 +6,7 @@ function Positionnement(objArray){
 
     return <ul id="liste-pos">
         {()=>{ magasin.map(function (mag){
-            return <PosLI id={mag._id} name={mag.product_name} store={mag.stores} />
+            <PosLI id={mag._id} name={mag.product_name} store={mag.stores} />
         }
     )}}
     </ul>
