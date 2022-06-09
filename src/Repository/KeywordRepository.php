@@ -24,38 +24,20 @@ class KeywordRepository extends ServiceEntityRepository
     /**
      * @return Keyword[]
      */
-<<<<<<< Updated upstream
-
-    public function findKeyword(): array
-=======
     public function findSearchCount(): array
->>>>>>> Stashed changes
     {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-<<<<<<< Updated upstream
-            'SELECT k FROM App\Entity\Keyword k 
-            -- INNER JOIN App\Entity\Website w ON r.website_id = w.id
-            -- INNER JOIN App\Entity\Keyword k ON k.id = r.keyword_id 
-=======
             'SELECT k FROM App\Entity\Keyword k
             -- INNER JOIN App\Entity\Website w WITH r.websiteId = w.id
             -- INNER JOIN App\Entity\Keyword k WITH k.id = r.keywordId 
->>>>>>> Stashed changes
             WHERE k.monthlySearchCount > 50000
             ORDER BY k.monthlySearchCount DESC'
         );
 
-<<<<<<< Updated upstream
-        // returns an array of RankedPage objects
-        return $query->getResult();
-
-       // returns an array of RankedPage objects
-=======
         // returns an array of Keyword objects
         return $query->getResult();
->>>>>>> Stashed changes
     }
 
     public function add(Keyword $entity, bool $flush = false): void
