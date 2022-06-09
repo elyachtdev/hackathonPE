@@ -6,9 +6,10 @@ import { element } from "prop-types";
 
 function FoodSearch() {
     const [keyword, setKeyword] = useState("");
-    const [result, setResult] = useState([]);
+    const [productsResult, setProductResult] = useState([]);
     const [isSaving, setIsSaving] = useState(false);
-    const  [productsList, setProductsList] = useState([])
+    const  [productsList, setProductsList] = useState([]);
+    const [websiteResult, setWebsiteResult] = useState([]);
 
     let apiCall = `https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=${keyword}&json=true`;
 
@@ -25,7 +26,8 @@ function FoodSearch() {
 
             productsList.forEach(element => {
                 // Pour changer de recherche
-                result.push({
+                productsResult.push({
+
                     product:{
                         name: element.brands,
                         keywordList: element._keywords,
@@ -40,19 +42,24 @@ function FoodSearch() {
                 let websiteList = response.data;
 
                 websiteList.forEach(element => {
-                    result.forEach(product => {
+                    productsResult.forEach(product => {
                         // LA c'est sensé marcher mais ça marche pas
-                        if(element.url.includes(product.name || product.stores) ) {
-                            console.log("ça marche");
+                        if(element.url.includes(product.product.stores)) {
+                            websiteResult.push(element);
+                            // console.log("ça marche pas", element.url.includes(product.stores));
                         }
                     })
                 })
-                console.log('market', response)
+                console.log('market', response);
+                console.log('website', websiteResult);
             });
 
             console.log(response.data);
             console.log("PRODUCTS LIST", productsList);
-            console.log("RESULT", result)
+            console.log("RESULT", productsResult);
+            setProductResult([]);
+            setProductsList(response.data.products);
+            setWebsiteResult([]);
             setProductsList(response.data);
             setIsSaving(false);
         })
@@ -60,53 +67,6 @@ function FoodSearch() {
             console.log(error);
         })
     }
-
-    // const handleSave = () => {
-    //     setIsSaving(true);
-    //     let formData = new FormData();
-    //     formData.append("name", keyword);
-    //     formData.append("description", result);
-        // axios
-        //     .get(`https://fr.openfoodfacts.org/cgi/search.pl?search_terms=${keyword}&search_simple=1&action=process&json=1`
-        //     , formData)
-        //     .then(function (response) {
-                // Swal.fire({
-                //     icon: "success",
-                //     title: "Mot clefs trouvés avec succès!",
-                //     showConfirmButton: false,
-                //     timer: 1500,
-                // });
-
-                // const productList = response.data.products
-
-                // console.log("PRODUCTS LIST", productList);
-
-                // productList.forEach(element => {
-                //     element._keywords.forEach(keyword => {
-                //         if (!result.includes(keyword)){
-                //         result.push(keyword);
-                //         }
-                //     })
-                // });
-
-                // axios.post("api/food", formData)
-
-            //     console.log(result);
-
-            //     setIsSaving(false);
-            //     setKeyword("");
-            //     setResult("");
-            // })
-            // .catch(function (error) {
-                // Swal.fire({
-                //     icon: "error",
-                //     title: "Une erreur est survenue!",
-                //     showConfirmButton: false,
-                //     timer: 1500,
-                // });
-            //     setIsSaving(false);
-            // });
-    // };
 
     return (
         <div className="container">
@@ -144,6 +104,18 @@ function FoodSearch() {
                     </form>
                 </div>
             </div>
+            <table>
+                {websiteResult.forEach(element => {
+                    return (
+                        <tr key={element.id}>
+                            <td>{element.id}</td>
+                            <td>{element.title}</td>
+                            <td>{element.price}</td>
+                        </tr>
+                    );
+                })}
+            </table>
+            
         </div>
     );
 }
