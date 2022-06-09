@@ -24,16 +24,22 @@ const Layout =({children}) =>{
                 </button>
                 <div className="collapse navbar-collapse justify-content-between"  id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link className={"nav-link"} to={"/projects"}>
                             {" "}
                             Projets{" "}
                             </Link>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                             <Link className={"nav-link"} to={"/food"}>
                             {" "}
-                            Food Search{" "}
+                            Recherche alimentaire{" "}
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className={"nav-link"} to={"/popularity"}>
+                            {" "}
+                            Comparatif produits{" "}
                             </Link>
                         </li>
                         <li className="nav-item">
