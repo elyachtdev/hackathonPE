@@ -2,70 +2,127 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { element } from "prop-types";
 
 function FoodSearch() {
-    const [keyword, setName] = useState("");
-    const [result, setDescription] = useState([]);
+    const [keyword, setKeyword] = useState("");
+    const [result, setResult] = useState([]);
     const [isSaving, setIsSaving] = useState(false);
+    const  [productsList, setProductsList] = useState([])
 
-    const handleSave = () => {
+    let apiCall = `https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=${keyword}&json=true`;
+
+    const fetchProductsList = () => {
         setIsSaving(true);
+
         let formData = new FormData();
         formData.append("name", keyword);
-        formData.append("description", result);
-        axios
-            .get(`https://fr.openfoodfacts.org/cgi/search.pl?search_terms=${keyword}&search_simple=1&action=process&json=1`
-            , formData)
-            .then(function (response) {
-                Swal.fire({
-                    icon: "success",
-                    title: "Mot clefs trouvés avec succès!",
-                    showConfirmButton: false,
-                    timer: 1500,
+
+        axios.get(apiCall, formData)
+        .then(function (response) {
+            
+            let productsList = response.data.products;
+
+            productsList.forEach(element => {
+                // Pour changer de recherche
+                result.push({
+                    product:{
+                        name: element.brands,
+                        keywordList: element._keywords,
+                        stores: element.stores
+                    }
+                    
                 });
-                const productList = response.data.products
-                console.log("hello");
-                productList.forEach(element => {
-                    element._keywords.forEach(keyword => {
-                        if (!result.includes(keyword)){
-                        result.push(keyword);
+            });
+
+            axios.get('/api/market')
+            .then(response => {
+                let websiteList = response.data;
+
+                websiteList.forEach(element => {
+                    result.forEach(product => {
+                        // LA c'est sensé marcher mais ça marche pas
+                        if(element.url.includes(product.name || product.stores) ) {
+                            console.log("ça marche");
                         }
                     })
-                });
-                axios.post("api/food", formData)
-                console.log(result);
-                setIsSaving(false);
-                setName("");
-                setDescription("");
-            })
-            .catch(function (error) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Une erreur est survenue!",
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
-                setIsSaving(false);
+                })
+                console.log('market', response)
             });
-    };
+
+            console.log(response.data);
+            console.log("PRODUCTS LIST", productsList);
+            console.log("RESULT", result)
+            setProductsList(response.data);
+            setIsSaving(false);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    // const handleSave = () => {
+    //     setIsSaving(true);
+    //     let formData = new FormData();
+    //     formData.append("name", keyword);
+    //     formData.append("description", result);
+        // axios
+        //     .get(`https://fr.openfoodfacts.org/cgi/search.pl?search_terms=${keyword}&search_simple=1&action=process&json=1`
+        //     , formData)
+        //     .then(function (response) {
+                // Swal.fire({
+                //     icon: "success",
+                //     title: "Mot clefs trouvés avec succès!",
+                //     showConfirmButton: false,
+                //     timer: 1500,
+                // });
+
+                // const productList = response.data.products
+
+                // console.log("PRODUCTS LIST", productList);
+
+                // productList.forEach(element => {
+                //     element._keywords.forEach(keyword => {
+                //         if (!result.includes(keyword)){
+                //         result.push(keyword);
+                //         }
+                //     })
+                // });
+
+                // axios.post("api/food", formData)
+
+            //     console.log(result);
+
+            //     setIsSaving(false);
+            //     setKeyword("");
+            //     setResult("");
+            // })
+            // .catch(function (error) {
+                // Swal.fire({
+                //     icon: "error",
+                //     title: "Une erreur est survenue!",
+                //     showConfirmButton: false,
+                //     timer: 1500,
+                // });
+            //     setIsSaving(false);
+            // });
+    // };
 
     return (
         <div className="container">
-            <h2 className="text-center mt-5 mb-3">Créer un nouveau projet</h2>
+            <h2 className="text-center mt-5 mb-3">Produits alimentaires</h2>
             <div className="card">
                 <div className="card-header">
-                    <Link className={"btn btn-outline-info float-right"} to={"/food"}>
-                        {" "}
-                        Voir tous les projets{" "}
-                    </Link>
+                    Recherchez ici qui de vos concurrents vend le plus du produit de votre recherche.
                 </div>
                 <div className="card-body">
                     <form>
+
                         <div className="form-group">
-                            <label htmlFor="name">Nom</label>
+                            <label htmlFor="name">Nom/Marque du produit</label>
                             <input
                                 onChange={(event) => {
-                                    setName(event.target.value);
+                                    setKeyword(event.target.value);
                                 }}
                                 value={keyword}
                                 type="text"
@@ -74,28 +131,16 @@ function FoodSearch() {
                                 name="name"
                             />
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="description">Description</label>
-                            {/* <select onChange={(event) => {
-                                    setDescription(event.target.value);
-                                }}>{result.map(el => <option value={el} key={el}> {el} </option>)}</select> */}
-                            {/* <textarea
-                                value=
-                                
-                                className="form-control"
-                                id="description"
-                                rows="3"
-                                name="description"
-                            ></textarea> */}
-                        </div>
+
                         <button
                             disabled={isSaving}
-                            onClick={handleSave}
+                            onClick={fetchProductsList}
                             type="button"
                             className="btn btn-outline-primary mt-3"
                         >
-                            Sauvegarder
+                            Rechercher
                         </button>
+
                     </form>
                 </div>
             </div>
