@@ -95,9 +95,12 @@ function FoodSearch() {
                         let rankList2 = response.data;
                         console.log("RK2", rankList2)
 
-                        if(element.keyword.includes(productsResult2.forEach(product => {
-                            rankResult2.push(product.product.stores);
-                        }))) 
+                        rankList2.forEach(element => {
+                            if(element.keyword.includes(productsResult2.forEach(product => {
+                                rankResult2.push(product.product.stores);
+                            })));
+                        })
+                        
 
                         console.log('market', response);
                         console.log('rank1', rankResult);
@@ -162,17 +165,6 @@ function FoodSearch() {
                     </form>
                 </div>
             </div>
-            <table>
-                {rankResult.forEach(element => {
-                    return (
-                        <tr key={element.id}>
-                            <td>{element.id}</td>
-                            <td>{element.title}</td>
-                            <td>{element.price}</td>
-                        </tr>
-                    );
-                })}
-            </table>
             
         </div>
     );
