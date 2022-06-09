@@ -21,6 +21,24 @@ class WebsiteRepository extends ServiceEntityRepository
         parent::__construct($registry, Website::class);
     }
 
+    /**
+     * @return Website[]
+     */
+
+    public function findWebsiteRanking(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT w FROM App\Entity\Website w'
+        );
+
+        // returns an array of RankedPage objects
+        return $query->getResult();
+
+       // returns an array of RankedPage objects
+    }
+
     public function add(Website $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
