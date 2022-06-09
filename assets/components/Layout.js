@@ -36,6 +36,12 @@ const Layout =({children}) =>{
                             Food Search{" "}
                             </Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className={"nav-link"} to={"/compare"}>
+                            {" "}
+                            Comparer produits{" "}
+                            </Link>
+                        </li>
                     </ul>
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
