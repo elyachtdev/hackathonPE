@@ -7,13 +7,15 @@ function PanneauSelection() {
     //useState pour récupérer le contenu des inputs et faire des trucs rigolol avec
     const [searchValueLeft, updateSearchValueLeft] = useState(" ");
     const [searchValueRight, updateSearchValueRight] = useState(" ");
+    //const [displayLeft, updateDisplayLeft] = useState(false);
+    //const [displayRight, updateDisplayRight] = useState(false);
 
     return <div id="panneau-selection">
-        <SearchBarLeft searchValue={searchValueLeft} updateValue={updateSearchValueLeft} />
-        <button id="left-but" type="submit">Tester le référencement</button>
+        <button id="left-but" type="submit" >Tester le référencement</button>
+        <SearchBarLeft searchValue={searchValueLeft} updateValue={updateSearchValueLeft} /*display={displayLeft}*/ />
         <p> OU </p>
-        <button id="right-but" type="submit">Comparer avec un autre produit</button>
-        <SearchBarRight searchValue={searchValueRight} updateValue={updateSearchValueRight} />
+        <SearchBarRight searchValue={searchValueRight} updateValue={updateSearchValueRight} /*display={displayRight}*/ />
+        <button id="right-but" type="submit" >Comparer avec un autre produit</button>
     </div>
 }
 
