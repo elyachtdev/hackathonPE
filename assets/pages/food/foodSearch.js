@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -104,17 +104,11 @@ function FoodSearch() {
                     </form>
                 </div>
             </div>
-            <table>
-                {websiteResult.forEach(element => {
-                    return (
-                        <tr key={element.id}>
-                            <td>{element.id}</td>
-                            <td>{element.title}</td>
-                            <td>{element.price}</td>
-                        </tr>
-                    );
-                })}
-            </table>
+
+            <div className="container my-3">
+                <h6>Liste des sites webs avec la meilleur visibilité pour ce produit :</h6>
+                
+            </div>
             
         </div>
     );
