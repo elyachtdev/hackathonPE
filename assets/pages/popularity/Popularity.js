@@ -43,7 +43,6 @@ function FoodSearch() {
 
                 });
             });
-
             
             axios.get('/api/market2')
             .then(response => {
@@ -51,6 +50,7 @@ function FoodSearch() {
 
                 console.log("RKLIST", rankList);
                 rankList.forEach(element => {
+
                     if(element.keyword.includes(productsResult1.forEach(product => {
                         rankResult.push(product.product.stores);
                     }))) {
@@ -95,9 +95,9 @@ function FoodSearch() {
                         let rankList2 = response.data;
                         console.log("RK2", rankList2)
 
-                        if(element.keyword.includes(productsResult1.product.stores)) {
-                            rankResult2.push(element);
-                        }
+                        if(element.keyword.includes(productsResult2.forEach(product => {
+                            rankResult2.push(product.product.stores);
+                        }))) 
 
                         console.log('market', response);
                         console.log('rank1', rankResult);
@@ -118,12 +118,12 @@ function FoodSearch() {
             <h2 className="text-center mt-5 mb-3">Produits alimentaires</h2>
             <div className="card">
                 <div className="card-header">
-                    Recherchez ici qui de vos concurrents vend le plus du produit de votre recherche.
+                    Comparez des produits pour savoir quel est le plus populaire parmis une liste de grandes surfaces connues.
                 </div>
                 <div className="card-body">
                     <form>
                         <div className="form-group">
-                            <label htmlFor="name">Nom/Marque du produit n°1</label>
+                            <label className="my-2" htmlFor="name">Nom/Marque du produit n°1</label>
                             <input
                                 onChange={(event) => {
                                     setKeyword1(event.target.value);
@@ -137,7 +137,7 @@ function FoodSearch() {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="name">Nom/Marque du produit n°2</label>
+                            <label className="my-2" htmlFor="name">Nom/Marque du produit n°2</label>
                             <input
                                 onChange={(event) => {
                                     setKeyword2(event.target.value);
@@ -154,7 +154,7 @@ function FoodSearch() {
                             disabled={isSaving}
                             onClick={fetchProductsList}
                             type="button"
-                            className="btn btn-outline-primary mt-3"
+                            className="btn btn-outline-primary mt-4"
                         >
                             Rechercher
                         </button>
