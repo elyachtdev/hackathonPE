@@ -30,9 +30,9 @@ class RankedPageRepository extends ServiceEntityRepository
 
         $query = $entityManager->createQuery(
             'SELECT r FROM App\Entity\RankedPage r 
-            -- INNER JOIN App\Entity\Website w ON r.website_id = w.id
-            -- INNER JOIN App\Entity\Keyword k ON k.id = r.keyword_id 
-            WHERE r.visibilityScore > 50000
+            -- INNER JOIN App\Entity\Website w WITH r.websiteId = w.id
+            -- INNER JOIN App\Entity\Keyword k WITH k.id = r.keywordId 
+            WHERE r.visibilityScore > 500000
             ORDER BY r.visibilityScore DESC'
         );
 
