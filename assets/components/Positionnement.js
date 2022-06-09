@@ -1,16 +1,17 @@
-import React from "react"
+import React from "react";
+//import PosLI from "./PosLI";
 
 function Positionnement(objArray){
     const magasin = objArray;
 
     return <ul id="liste-pos">
-        {()=> magasin.forEach( store => {
-            <li key={store._id}>
-                <p>{store.product_name}</p>
-                <p>{store.stores}</p>
-                <img src={store.image_thumb_url} alt={store.product_name}>{store.product_name}</img>
-            </li>
-        })}
+        {magasin.map(function (mag){
+            return <li key={mag._id}>
+            <p>{mag.product_name}</p>
+            <p>{mag.stores}</p>
+        </li> /*<PosLI id={mag._id} name={mag.product_name} store={mag.stores} />*/
+        }
+    )}
     </ul>
 }
 
