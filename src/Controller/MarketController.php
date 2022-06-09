@@ -23,7 +23,7 @@ class MarketController extends AbstractController
 
         return $this->json($markets);
     }
-    #[Route('/market2', name: 'app_market')]
+    #[Route('/market2', name: 'app_market2')]
     public function test(KeywordRepository $repo): Response
     {
         // $min_rank = 50000;
